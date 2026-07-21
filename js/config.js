@@ -12,9 +12,9 @@ const SITE_CONFIG = {
 
   // Trouwdatum, gebruikt voor de countdown op de homepage.
   // Formaat: "JJJJ-MM-DDTUU:MM:00"
-  weddingDateISO: "2027-06-12T12:00:00",
+  weddingDateISO: "2027-06-25T12:00:00",
 
-  names: "Anna & Bas",
+  names: "Puk & Jonathan",
 };
 
 /* --------------------------------------------------------------------------

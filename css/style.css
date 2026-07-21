@@ -124,7 +124,8 @@ p { margin: 0 0 1em; color: var(--ink); }
 }
 
 .section {
-  padding: 96px 0;
+  padding-top: 96px;
+  padding-bottom: 96px;
   position: relative;
 }
 
@@ -140,7 +141,7 @@ p { margin: 0 0 1em; color: var(--ink); }
 .has-thread .section::before {
   content: "";
   position: absolute;
-  left: var(--edge);
+  left: 0;
   top: 0;
   bottom: 0;
   width: 1px;
@@ -290,7 +291,8 @@ fieldset {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 120px 0 80px;
+  padding-top: 120px;
+  padding-bottom: 80px;
 }
 
 .hero .date-line {

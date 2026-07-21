@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anna & Bas — 12 juni 2027</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/config.js" defer></script>
+</head>
+<body>
+
+<!-- ============ WACHTWOORDHEK ============ -->
+<!-- Dit blok is zichtbaar zolang de site nog niet ontgrendeld is. -->
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <p class="eyebrow">Persoonlijke uitnodiging</p>
+    <h1 style="font-size: clamp(1.8rem, 5vw, 2.6rem);">Anna &amp; Bas</h1>
+    <p class="muted">Vul het wachtwoord in dat op jullie uitnodiging staat.</p>
+    <form id="gate-form">
+      <label for="gate-password">Wachtwoord</label>
+      <input type="password" id="gate-password" autocomplete="off" required>
+      <p class="gate-error" id="gate-error">Dat wachtwoord klopt niet — check jullie uitnodigingskaart.</p>
+      <button type="submit" class="btn">Bekijk de website</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ GASTKEUZE ============ -->
+<!-- Verschijnt direct na het invoeren van het wachtwoord. -->
+<div class="gate" id="guest-gate" style="display:none;">
+  <div class="gate-box">
+    <p class="eyebrow">Bijna binnen</p>
+    <h2>Voor wie is deze uitnodiging?</h2>
+    <p class="muted">Zo laten we je precies het programma zien dat voor jou geldt.</p>
+    <div class="guest-toggle">
+      <button class="btn btn-outline" data-choose="dag">De hele dag</button>
+      <button class="btn btn-outline" data-choose="avond">Alleen het avondfeest</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SITE (verborgen tot ontgrendeld) ============ -->
+<div id="site" style="display:none;">
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-names">A &amp; B</a>
+      <div class="nav-links">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="verhaal.html">Ons verhaal</a>
+        <a href="programma.html">Programma</a>
+        <a href="locatie.html">Locatie</a>
+        <a href="galerij.html">Foto's</a>
+        <a href="cadeau.html">Cadeautips</a>
+        <a href="rsvp.html">RSVP</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero wrap">
+    <p class="eyebrow">Wij gaan trouwen</p>
+    <h1>Anna<br>&amp; Bas</h1>
+    <p class="date-line" id="countdown">nog ... dagen</p>
+    <p style="margin-top: 40px; max-width: 40ch;">
+      12 juni 2027 — en we zouden het geweldig vinden als jij erbij bent.
+      Hieronder vind je alles wat je moet weten: ons verhaal, het programma,
+      de locatie en hoe je je kunt aanmelden.
+    </p>
+    <div style="margin-top: 32px;">
+      <a href="rsvp.html" class="btn">Meld je aan</a>
+    </div>
+  </header>
+
+  <section class="section wrap">
+    <p class="eyebrow">Snel naar</p>
+    <div class="grid-2">
+      <a href="verhaal.html" class="card" style="text-decoration:none;">
+        <h3>Ons verhaal</h3>
+        <p class="muted">Hoe het begon, en hoe we hier kwamen.</p>
+      </a>
+      <a href="programma.html" class="card" style="text-decoration:none;">
+        <h3>Programma</h3>
+        <p class="muted">Het tijdschema van de dag.</p>
+      </a>
+      <a href="locatie.html" class="card" style="text-decoration:none;">
+        <h3>Locatie &amp; reizen</h3>
+        <p class="muted">Adres, parkeren, overnachten.</p>
+      </a>
+      <a href="cadeau.html" class="card" style="text-decoration:none;">
+        <h3>Cadeautips</h3>
+        <p class="muted">Voor wie het lief vindt om te vragen.</p>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">Anna &amp; Bas · 12 juni 2027</footer>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const gate = document.getElementById("gate");
+    const guestGate = document.getElementById("guest-gate");
+    const site = document.getElementById("site");
+    const form = document.getElementById("gate-form");
+    const errorMsg = document.getElementById("gate-error");
+
+    function showSite() {
+      gate.style.display = "none";
+      guestGate.style.display = "none";
+      site.style.display = "block";
+      applyGuestVisibility();
+      startCountdown();
+    }
+
+    // Als deze sessie al ontgrendeld én een gasttype gekozen is: meteen door.
+    if (isUnlocked() && getGuestType()) {
+      showSite();
+    } else if (isUnlocked()) {
+      gate.style.display = "none";
+      guestGate.style.display = "flex";
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const value = document.getElementById("gate-password").value.trim().toLowerCase();
+      if (value === SITE_CONFIG.password.toLowerCase()) {
+        unlock();
+        gate.style.display = "none";
+        guestGate.style.display = "flex";
+      } else {
+        errorMsg.classList.add("show");
+      }
+    });
+
+    guestGate.querySelectorAll("[data-choose]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setGuestType(btn.getAttribute("data-choose"));
+        showSite();
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

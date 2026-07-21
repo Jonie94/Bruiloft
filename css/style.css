@@ -1,0 +1,431 @@
+/* ==========================================================================
+   Bruiloft website — design system
+   --------------------------------------------------------------------------
+   Concept: "De Draad" (the thread). Eén dunne verticale lijn loopt door de
+   site heen en verbindt alle onderdelen — jullie verhaal, het programma,
+   de locatie — als beeld van het pad dat jullie samen lopen. Op de
+   programma-pagina wordt diezelfde lijn letterlijk de tijdlijn.
+
+   Palet:
+     --ink       #1A1A18   hoofdtekst / donker
+     --paper     #FBFAF7   achtergrond
+     --thread    #4B5D52   salie/bosgroen — de enige accentkleur
+     --muted     #A39C8E   subtiele tekst, randen
+     --paper-2   #F1EFE9   lichte vlakken (kaarten, secties)
+
+   Typografie:
+     Display: "Fraunces"      — koppen, met karakter, terughoudend gebruikt
+     Body:    "Inter"         — lopende tekst
+     Utility: "IBM Plex Mono" — cijfers, data, labels (eyebrows)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --ink: #1A1A18;
+  --paper: #FBFAF7;
+  --paper-2: #F1EFE9;
+  --thread: #4B5D52;
+  --thread-soft: #4B5D521a;
+  --muted: #A39C8E;
+
+  --font-display: "Fraunces", serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --max-w: 780px;
+  --edge: clamp(24px, 6vw, 64px);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: var(--thread);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--thread);
+  outline-offset: 3px;
+}
+
+/* ---- Typography helpers ---- */
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0 0 0.4em;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2.4rem, 7vw, 4.4rem); font-optical-sizing: auto; }
+h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); font-weight: 600; }
+
+p { margin: 0 0 1em; color: var(--ink); }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--thread);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: var(--thread);
+  display: inline-block;
+}
+
+.muted { color: var(--muted); }
+
+/* ---- Layout ---- */
+
+.wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--edge);
+}
+
+.section {
+  padding: 96px 0;
+  position: relative;
+}
+
+.section + .section {
+  border-top: 1px solid var(--paper-2);
+}
+
+/* De Draad: verticale lijn, geactiveerd per pagina met .has-thread */
+.has-thread .section {
+  position: relative;
+}
+
+.has-thread .section::before {
+  content: "";
+  position: absolute;
+  left: var(--edge);
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(var(--thread-soft), var(--thread) 20%, var(--thread) 80%, var(--thread-soft));
+  opacity: 0.5;
+}
+
+@media (max-width: 640px) {
+  .has-thread .section::before { display: none; }
+}
+
+/* ---- Nav ---- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--paper-2);
+}
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 20px var(--edge);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nav-names {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(12px, 2.5vw, 28px);
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+  color: var(--ink);
+  border-color: var(--thread);
+}
+
+/* ---- Buttons & form fields ---- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--paper);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 14px 22px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover { background: var(--thread); border-color: var(--thread); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.btn-outline:hover { color: var(--paper); }
+
+label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+input, select, textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--paper-2);
+  border-bottom: 1px solid var(--ink);
+  padding: 12px 4px;
+  margin-bottom: 24px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-bottom-color: var(--thread);
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+/* ---- Cards / grid ---- */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+@media (max-width: 640px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--paper-2);
+  padding: 28px;
+}
+
+/* ---- Hero ---- */
+
+.hero {
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 0 80px;
+}
+
+.hero .date-line {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--thread);
+  margin-top: 18px;
+}
+
+/* ---- Timeline (programma) ---- */
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 48px 44px;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--thread);
+}
+
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 16px;
+  bottom: -8px;
+  width: 1px;
+  background: var(--paper-2);
+}
+
+.timeline-item:last-child::after { display: none; }
+
+.timeline-time {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--thread);
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* ---- Gallery ---- */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.gallery > div {
+  aspect-ratio: 4 / 5;
+  background: var(--paper-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-align: center;
+  padding: 8px;
+}
+
+@media (max-width: 640px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---- Password gate ---- */
+
+.gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--edge);
+}
+
+.gate-box {
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+}
+
+.gate-box form {
+  margin-top: 32px;
+}
+
+.gate-error {
+  color: #A13B2A;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  margin-top: -12px;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.gate-error.show { display: block; }
+
+/* ---- Guest-type toggle ---- */
+
+.guest-toggle {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.guest-toggle button {
+  flex: 1;
+  min-width: 140px;
+}
+
+/* Zichtbaarheid op basis van gastentype, gestuurd via js/main.js */
+[data-guest] { display: none; }
+[data-guest].is-visible { display: block; }
+
+/* ---- Footer ---- */
+
+.footer {
+  padding: 48px var(--edge) 64px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}

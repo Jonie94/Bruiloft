@@ -81,8 +81,9 @@
 <footer class="footer">Puk &amp; Jonathan · 25 juni 2027</footer>
 
 <script>
-  requireUnlock();
+  
   document.addEventListener("DOMContentLoaded", () => {
+    requireUnlock();
     applyGuestVisibility();
     const type = getGuestType();
     document.getElementById("gasttype").value = type || "";

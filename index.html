@@ -26,20 +26,6 @@
   </div>
 </div>
 
-<!-- ============ GASTKEUZE ============ -->
-<!-- Verschijnt direct na het invoeren van het wachtwoord. -->
-<div class="gate" id="guest-gate" style="display:none;">
-  <div class="gate-box">
-    <p class="eyebrow">Bijna binnen</p>
-    <h2>Voor wie is deze uitnodiging?</h2>
-    <p class="muted">Zo laten we je precies het programma zien dat voor jou geldt.</p>
-    <div class="guest-toggle">
-      <button class="btn btn-outline" data-choose="dag">De hele dag</button>
-      <button class="btn btn-outline" data-choose="avond">Alleen het avondfeest</button>
-    </div>
-  </div>
-</div>
-
 <!-- ============ SITE (verborgen tot ontgrendeld) ============ -->
 <div id="site" style="display:none;">
 
@@ -100,44 +86,37 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const gate = document.getElementById("gate");
-    const guestGate = document.getElementById("guest-gate");
     const site = document.getElementById("site");
     const form = document.getElementById("gate-form");
     const errorMsg = document.getElementById("gate-error");
 
     function showSite() {
       gate.style.display = "none";
-      guestGate.style.display = "none";
       site.style.display = "block";
       applyGuestVisibility();
       startCountdown();
     }
 
-    // Als deze sessie al ontgrendeld én een gasttype gekozen is: meteen door.
+    // Als deze sessie al ontgrendeld is, meteen door.
     if (isUnlocked() && getGuestType()) {
       showSite();
-    } else if (isUnlocked()) {
-      gate.style.display = "none";
-      guestGate.style.display = "flex";
     }
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const value = document.getElementById("gate-password").value.trim().toLowerCase();
-      if (value === SITE_CONFIG.password.toLowerCase()) {
+
+      if (value === SITE_CONFIG.passwords.dag.toLowerCase()) {
+        setGuestType("dag");
         unlock();
-        gate.style.display = "none";
-        guestGate.style.display = "flex";
+        showSite();
+      } else if (value === SITE_CONFIG.passwords.avond.toLowerCase()) {
+        setGuestType("avond");
+        unlock();
+        showSite();
       } else {
         errorMsg.classList.add("show");
       }
-    });
-
-    guestGate.querySelectorAll("[data-choose]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        setGuestType(btn.getAttribute("data-choose"));
-        showSite();
-      });
     });
   });
 </script>

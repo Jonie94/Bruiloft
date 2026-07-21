@@ -5,10 +5,14 @@
    ========================================================================== */
 
 const SITE_CONFIG = {
-  // Wachtwoord voor de site. LET OP: dit is geen echte beveiliging (iedereen
-  // die de broncode bekijkt kan het wachtwoord zien) — het is puur bedoeld
-  // om te voorkomen dat vreemden of zoekmachines toevallig binnenlopen.
-  password: "onzedag2027",
+  // Twee wachtwoorden: welk wachtwoord iemand invoert bepaalt automatisch
+  // of diegene als dag- of avondgast behandeld wordt. LET OP: dit is geen
+  // echte beveiliging — het is puur bedoeld om te voorkomen dat vreemden
+  // of zoekmachines toevallig binnenlopen.
+  passwords: {
+    dag: "onzedag2027",
+    avond: "onzeavond2027",
+  },
 
   // Trouwdatum, gebruikt voor de countdown op de homepage.
   // Formaat: "JJJJ-MM-DDTUU:MM:00"

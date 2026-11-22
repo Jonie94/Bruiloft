@@ -40,9 +40,9 @@
     <form
       name="rsvp-dag"
       method="POST"
-      action="bedankt.html"
+      action="/bedankt"
       data-netlify="true"
-      data-netlify-honeypot="bot-field"
+      netlify-honeypot="bot-field"
       style="max-width: 480px; margin-top: 40px;"
     >
       <!-- Verplicht voor Netlify: moet gelijk zijn aan name hierboven -->
@@ -71,8 +71,8 @@
         <label for="dag-dieet">Dieetwensen of allergieën</label>
         <textarea id="dag-dieet" name="dieet" rows="3"></textarea>
 
-        <label for="dag-dans">Via welk e-mailadres kunnnn we je bereiken?</label>
-        <input type="text" id="contact-mail" name="e-mailadres">
+        <label for="dag-email">Via welk e-mailadres kunnen we je bereiken?</label>
+        <input type="text" id="dag-email" name="e-mailadres" inputmode="email" autocomplete="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Vul een geldig e-mailadres in">
       </div>
 
       <label for="dag-opmerking">Nog iets dat we moeten weten?</label>
@@ -90,9 +90,9 @@
     <form
       name="rsvp-avond"
       method="POST"
-      action="/bedankt.html"
+      action="/bedankt"
       data-netlify="true"
-      data-netlify-honeypot="bot-field"
+      netlify-honeypot="bot-field"
       style="max-width: 480px; margin-top: 40px;"
     >
       <input type="hidden" name="form-name" value="rsvp-avond">
@@ -121,8 +121,8 @@
         <label for="avond-aantal">Met hoeveel personen kom je (inclusief jezelf)?</label>
         <input type="number" id="avond-aantal" name="aantal" min="1" value="1" required>
 
-        <label for="dag-dans">Via welk e-mailadres kunnnn we je bereiken?</label>
-        <input type="text" id="contact-mail" name="e-mailadres">
+        <label for="avond-email">Via welk e-mailadres kunnen we je bereiken?</label>
+        <input type="text" id="avond-email" name="e-mailadres" inputmode="email" autocomplete="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Vul een geldig e-mailadres in">
       </div>
 
       <label for="avond-opmerking">Nog iets dat we moeten weten?</label>

@@ -10,8 +10,8 @@ const SITE_CONFIG = {
   // echte beveiliging — het is puur bedoeld om te voorkomen dat vreemden
   // of zoekmachines toevallig binnenlopen.
   passwords: {
-    dag: "onzedag2027",
-    avond: "onzeavond2027",
+    dag: "Leeuwarden",
+    avond: "Castricum",
   },
 
   // Trouwdatum, gebruikt voor de countdown op de homepage.

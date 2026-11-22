@@ -19,7 +19,7 @@
       <a href="programma.html" aria-current="page">Programma</a>
       <a href="locatie.html">Locatie</a>
       <a href="galerij.html">Foto's</a>
-      <a href="cadeau.html">Cadeautips</a>
+      <a href="handig.html">Handig</a>
       <a href="rsvp.html">RSVP</a>
     </div>
   </div>
@@ -33,38 +33,73 @@
   <ul class="timeline" style="margin-top: 48px;">
 
     <!-- Onderdelen met data-guest="dag" zijn alleen zichtbaar voor daggasten -->
-    <li class="timeline-item" data-guest="dag">
-      <span class="timeline-time">13:00</span>
-      <h3>Ceremonie</h3>
-      <p class="muted">[Locatienaam] — kom op tijd, de deuren gaan om 12:45 open.</p>
-    </li>
-
-    <li class="timeline-item" data-guest="dag">
+    <li class="timeline-item" data-guest="allebei">
       <span class="timeline-time">14:00</span>
-      <h3>Felicitaties &amp; borrel</h3>
-      <p class="muted">[Plek] — tijd voor een glas en een knuffel.</p>
+      <h3>Ceremonie</h3>
+      <p class="muted"> kom op tijd, de deuren gaan om 13:30 open.</p>
+    </li>
+
+    <li class="timeline-item" data-guest="allebei">
+      <span class="timeline-time">14:45</span>
+      <h3> Proost</h3>
+      <p class="muted">We heffen het glas.</p>
     </li>
 
     <li class="timeline-item" data-guest="dag">
-      <span class="timeline-time">16:30</span>
+      <span class="timeline-time">15:00</span>
+      <h3>Receptie</h3>
+      <p class="muted">Foto's, borrel en een knuffel.</p>
+
+    </li>
+
+    <li class="timeline-item" data-guest="dag">
+      <span class="timeline-time">17:00</span>
       <h3>Diner</h3>
-      <p class="muted">[Locatienaam]. Dieetwensen kun je doorgeven bij je RSVP.</p>
+      <p class="muted">Dieetwensen kun je doorgeven bij je RSVP.</p>
+    </li>
+
+    <li class="timeline-item" data-guest="avond">
+      <span class="timeline-time">15:00</span>
+      <h3>Even uitwaaien, tot vanavond!</h3>
+      <p class="muted">
+        Na de proost sluiten we het eerste deel van de dag in kleine kring af.
+        Rond 15:00 nemen we dan ook afscheid van onze avondgasten, maar
+        we zien jullie graag terug vanaf 20:00 voor het feest. Gebruik de tussentijd
+        voor een hapje en een drankje, of even rust, en kom vanavond uitgerust
+        en met dansschoenen mee!
+      </p>
+    </li>
+
+        <!-- Alleen zichtbaar voor avondgasten -->
+    <li class="timeline-item" data-guest="avond">
+      <span class="timeline-time">15:00 – 20:00</span>
+      <h3>Nog iets eten vooraf?</h3>
+      <p class="muted">
+        Het avondfeest begint om 20:00. Wil je er vooraf nog iets eten? Dit zijn onze tips in de buurt van BijHuub:
+      </p>
+      <p class="muted">
+        <strong>[Restaurantnaam 1]</strong> — [korte omschrijving, afstand tot BijHuub]
+        <a href="[link]" target="_blank">website</a>
+      </p>
+      <p class="muted">
+        <strong>[Restaurantnaam 2]</strong> — [korte omschrijving, afstand tot BijHuub]
+        <a href="[link]" target="_blank">website</a>
+      </p>
     </li>
 
     <!-- Onderdelen met data-guest="allebei" zijn zichtbaar voor beide groepen -->
     <li class="timeline-item" data-guest="allebei">
       <span class="timeline-time">20:00</span>
-      <h3>Avondfeest begint</h3>
-      <p class="muted">[Locatienaam] — welkom, avondgasten!</p>
-    </li>
-
-    <li class="timeline-item" data-guest="allebei">
-      <span class="timeline-time">21:00</span>
       <h3>Openingsdans</h3>
     </li>
 
     <li class="timeline-item" data-guest="allebei">
-      <span class="timeline-time">01:00</span>
+      <span class="timeline-time">20:15</span>
+      <h3>Feest</h3>
+    </li>
+
+    <li class="timeline-item" data-guest="allebei">
+      <span class="timeline-time">00:00</span>
       <h3>Einde van het feest</h3>
       <p class="muted">Tot dan!</p>
     </li>
@@ -80,7 +115,7 @@
     const type = getGuestType();
     const note = document.getElementById("guest-note");
     note.textContent = type === "avond"
-      ? "Jij bent uitgenodigd voor het avondfeest."
+      ? "Jij bent uitgenodigd voor het avondfeest, maar we vinden het ook leuk als je bij de ceremonie bent."
       : "Jij bent uitgenodigd voor de hele dag.";
   });
 </script>

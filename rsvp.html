@@ -18,8 +18,8 @@
       <a href="verhaal.html">Ons verhaal</a>
       <a href="programma.html">Programma</a>
       <a href="locatie.html">Locatie</a>
+      <a href="handig.html">Handig</a>
       <a href="galerij.html">Foto's</a>
-      <a href="cadeau.html">Cadeautips</a>
       <a href="rsvp.html" aria-current="page">RSVP</a>
     </div>
   </div>
@@ -29,66 +29,135 @@
   <p class="eyebrow">RSVP</p>
   <h1>Kom je?</h1>
   <p class="muted" style="margin-top: 12px; max-width: 60ch;">
-    Geef ons uiterlijk <strong>1 mei 2027</strong> door of je erbij bent.
+    Laat ons uiterlijk <strong>25-05-2027</strong> weten of je erbij bent.
   </p>
 
-  <!--
-    LET OP — dit formulier heeft nog geen echte "postbus":
-    het stuurt nu nergens naartoe. De makkelijkste manier om dit alsnog te
-    laten werken, zonder een eigen server te bouwen:
+  <!-- ==================================================================
+       FORMULIER 1: DAGGASTEN
+       Alleen zichtbaar voor wie met het dag-wachtwoord is binnengekomen.
+       ================================================================== -->
+  <div data-guest="dag">
+    <form
+      name="rsvp-dag"
+      method="POST"
+      action="bedankt.html"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      style="max-width: 480px; margin-top: 40px;"
+    >
+      <!-- Verplicht voor Netlify: moet gelijk zijn aan name hierboven -->
+      <input type="hidden" name="form-name" value="rsvp-dag">
+      <!-- Spamval: echte mensen zien dit veld niet -->
+      <p hidden><label>Niet invullen: <input name="bot-field"></label></p>
 
-    Optie A — Formspree (gratis tot 50 inzendingen/maand):
-      1. Maak een gratis account op formspree.io
-      2. Maak een "form", je krijgt een endpoint als
-         https://formspree.io/f/abc12345
-      3. Vervang hieronder action="#" door jouw endpoint
-      4. Verander method="GET" niet aan — laat op POST staan
+      <label for="dag-naam">Voor- en achternaam</label>
+      <input type="text" id="dag-naam" name="naam" required>
 
-    Optie B — Tally.so:
-      Maak daar een formulier en zet in plaats van dit hele <form>-blok
-      een <iframe> met de embed-link die Tally je geeft.
-  -->
-  <form id="rsvp-form" action="#" method="POST" style="max-width: 480px; margin-top: 40px;">
+      <label for="dag-aanwezig">Ben je erbij op 25 juni?</label>
+      <select id="dag-aanwezig" name="aanwezig" required>
+        <option value="">Kies een optie</option>
+        <option value="ja">Ja, ik kom!</option>
+        <option value="nee">Helaas, ik kan niet</option>
+      </select>
 
-    <label for="naam">Naam</label>
-    <input type="text" id="naam" name="naam" required>
+      <!-- Alles in dit blok verdwijnt als iemand "nee" kiest -->
+      <div class="rsvp-extra">
+        <label for="dag-aantal">Met hoeveel personen kom je (inclusief jezelf)?</label>
+        <input type="number" id="dag-aantal" name="aantal" min="1" value="1" required>
 
-    <label for="aanwezig">Ben je erbij?</label>
-    <select id="aanwezig" name="aanwezig" required>
-      <option value="">Kies een optie</option>
-      <option value="ja">Ja, ik kom!</option>
-      <option value="nee">Helaas, ik kan niet</option>
-    </select>
+        <label for="dag-namen">Namen van partner/gezinsleden die meekomen</label>
+        <input type="text" id="dag-namen" name="namen_meekomend">
 
-    <label for="aantal">Met hoeveel personen (inclusief jezelf)?</label>
-    <input type="number" id="aantal" name="aantal" min="1" value="1">
+        <label for="dag-dieet">Dieetwensen of allergieën</label>
+        <textarea id="dag-dieet" name="dieet" rows="3"></textarea>
 
-    <fieldset data-guest="dag">
-      <label for="dieet">Dieetwensen of allergieën</label>
-      <textarea id="dieet" name="dieet" rows="3"></textarea>
-    </fieldset>
+        <label for="dag-dans">Via welk e-mailadres kunnnn we je bereiken?</label>
+        <input type="text" id="contact-mail" name="e-mailadres">
+      </div>
 
-    <label for="dans">Verzoeknummer voor de DJ (optioneel)</label>
-    <input type="text" id="dans" name="dans">
+      <label for="dag-opmerking">Nog iets dat we moeten weten?</label>
+      <textarea id="dag-opmerking" name="opmerking" rows="3"></textarea>
 
-    <input type="hidden" id="gasttype" name="gasttype" value="">
+      <button type="submit" class="btn">Versturen</button>
+    </form>
+  </div>
 
-    <button type="submit" class="btn">Versturen</button>
-    <p class="muted" id="rsvp-note" style="margin-top: 16px; font-size: 0.85rem;"></p>
-  </form>
+  <!-- ==================================================================
+       FORMULIER 2: AVONDGASTEN
+       Alleen zichtbaar voor wie met het avond-wachtwoord is binnengekomen.
+       ================================================================== -->
+  <div data-guest="avond">
+    <form
+      name="rsvp-avond"
+      method="POST"
+      action="/bedankt.html"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      style="max-width: 480px; margin-top: 40px;"
+    >
+      <input type="hidden" name="form-name" value="rsvp-avond">
+      <p hidden><label>Niet invullen: <input name="bot-field"></label></p>
+
+      <label for="avond-naam">Voor- en achternaam</label>
+      <input type="text" id="avond-naam" name="naam" required>
+
+      <label for="avond-aanwezig">Ben je erbij op 25 juni?</label>
+      <select id="avond-aanwezig" name="aanwezig" required>
+        <option value="">Kies een optie</option>
+        <option value="ja">Ja, ik kom!</option>
+        <option value="nee">Helaas, ik kan niet</option>
+      </select>
+
+      <!-- Alles in dit blok verdwijnt als iemand "nee" kiest -->
+      <div class="rsvp-extra">
+        <label for="avond-bij">Ik ben bij:</label>
+        <select id="avond-bij" name="ik_ben_bij" required>
+          <option value="">Kies een optie</option>
+          <option value="ceremonie">De ceremonie</option>
+          <option value="feest">Het feest</option>
+          <option value="ceremonie-en-feest">De ceremonie en het feest</option>
+        </select>
+
+        <label for="avond-aantal">Met hoeveel personen kom je (inclusief jezelf)?</label>
+        <input type="number" id="avond-aantal" name="aantal" min="1" value="1" required>
+
+        <label for="dag-dans">Via welk e-mailadres kunnnn we je bereiken?</label>
+        <input type="text" id="contact-mail" name="e-mailadres">
+      </div>
+
+      <label for="avond-opmerking">Nog iets dat we moeten weten?</label>
+      <textarea id="avond-opmerking" name="opmerking" rows="3"></textarea>
+
+      <button type="submit" class="btn">Versturen</button>
+    </form>
+  </div>
 </section>
 
 <footer class="footer">Puk &amp; Jonathan · 25 juni 2027</footer>
 
 <script>
-  
   document.addEventListener("DOMContentLoaded", () => {
     requireUnlock();
     applyGuestVisibility();
-    const type = getGuestType();
-    document.getElementById("gasttype").value = type || "";
-    document.getElementById("rsvp-note").textContent =
-      "Let op: dit formulier werkt pas als action=\"#\" hierboven is vervangen door een echt formulier-endpoint (zie de code-comment).";
+
+    // Verberg de extra vragen als iemand aangeeft niet te komen
+    document.querySelectorAll("form").forEach((form) => {
+      const select = form.querySelector('select[name="aanwezig"]');
+      const extra = form.querySelector(".rsvp-extra");
+      if (!select || !extra) return;
+
+      function update() {
+        const komt = select.value !== "nee";
+        extra.style.display = komt ? "" : "none";
+        // Uitgeschakelde velden worden niet gevalideerd en niet meegestuurd
+        extra.querySelectorAll("input, textarea, select").forEach((el) => {
+          el.disabled = !komt;
+        });
+      }
+
+      select.addEventListener("change", update);
+      update();
+    });
   });
 </script>
 </body>
